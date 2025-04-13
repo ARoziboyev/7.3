@@ -5,12 +5,12 @@ import Navbar from '../../Components/Navbar'
 function MainLayout() {
   return (
     <>
-    <Navbar />
-    <main>
-    <Outlet />
-    </main>
-  </>
+      <Navbar />
+      <main >
+        <Outlet />
+      </main>
+    </>
   )
 }
 
-export default MainLayout
+export default MainLayout;

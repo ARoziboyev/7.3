@@ -1,30 +1,43 @@
 // src/Pages/Cantact.jsx
-import React from 'react';
-import { useLoaderData } from "react-router-dom";
+import React from 'react'
+import { useLoaderData } from 'react-router-dom'
 
 export const loader = async () => {
-  const res = await fetch('https://dummyjson.com/products');
-  const data = await res.json();
-  return data.products;
-};
-
-function Cantact() {
-  const products = useLoaderData();
-
-  return (
-    <div style={{ padding: '20px' }}>
-      <h2>Products</h2>
-      <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
-        {products.map(product => (
-          <div key={product.id} style={{ border: '1px solid #ccc', padding: '10px', width: '200px' }}>
-            <img src={product.thumbnail} alt={product.title} style={{ width: '100%' }} />
-            <h4>{product.title}</h4>
-            <p>${product.price}</p>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
+  const response = await fetch('https://dummyjson.com/products')
+  const data = await response.json()
+  return data.products // Faqat productlar kerak
 }
 
-export default Cantact;
+function Cantact() {
+  const data = useLoaderData()
+
+  return (
+    
+    <div className="page" style={{ padding: '20px' }}>
+
+      {data && Array.isArray(data) ? (
+        <div  style={{ display: 'flex', flexWrap: 'wrap', gap: '20px' }}>
+          {data.map((item) => (
+            <div className="card"
+              key={item.id}
+              style={{
+                border: '1px solid #ccc',
+                borderRadius: '10px',
+                padding: '10px',
+                width: '200px'
+              }}
+            >
+              <h4>{item.title}</h4>
+              <img src={item.thumbnail} alt={item.title} style={{ width: '100%' }} />
+              <p>${item.price}</p>
+            </div>
+          ))}
+        </div>
+      ) : (
+        <p>Loading or no data found...</p>
+      )}
+    </div>
+  )
+}
+
+export default Cantact
